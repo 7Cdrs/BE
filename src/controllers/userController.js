@@ -33,7 +33,7 @@ class UserController {
         null, // Avatar diisi di UserService
         req.body.provider || "local"
       );
-      const result = await UserService.register(dto, req.file);
+      const result = await userService.register(dto, req.file);
       return buildSuccessResponse(res, result);
     } catch (error) {
       return handleErrorResponse(res, error);
@@ -44,7 +44,7 @@ class UserController {
   async login(req, res) {
     try {
       const dto = new LoginRequestDTO(req.body.email, req.body.password);
-      const result = await UserService.login(dto);
+      const result = await userService.login(dto);
       return buildSuccessResponse(res, result);
     } catch (error) {
       return handleErrorResponse(res, error);
@@ -55,7 +55,7 @@ class UserController {
   async getUserById(req, res) {
     try {
       const { id } = req.params;
-      const result = await UserService.getUserById(id);
+      const result = await userService.getUserById(id);
       return buildSuccessResponse(res, result);
     } catch (error) {
       return handleErrorResponse(res, error);
@@ -73,7 +73,7 @@ class UserController {
         req.body.email,
         null // Avatar diisi di UserService jika ada file
       );
-      const result = await UserService.updateUser(id, dto, req.file); // Kirim file untuk update avatar
+      const result = await userService.updateUser(id, dto, req.file); // Kirim file untuk update avatar
       return buildSuccessResponse(res, result);
     } catch (error) {
       return handleErrorResponse(res, error);
@@ -84,7 +84,7 @@ class UserController {
   async deleteUser(req, res) {
     try {
       const { id } = req.params;
-      const result = await UserService.deleteUser(id);
+      const result = await userService.deleteUser(id);
       return buildSuccessResponse(res, result);
     } catch (error) {
       return handleErrorResponse(res, error);
@@ -95,7 +95,7 @@ class UserController {
   async requestResetPassword(req, res) {
     try {
       const dto = new ResetPasswordRequestDTO(req.body.email);
-      const result = await UserService.requestResetPassword(dto);
+      const result = await userService.requestResetPassword(dto);
       return buildSuccessResponse(res, result);
     } catch (error) {
       return handleErrorResponse(res, error);
@@ -109,7 +109,7 @@ class UserController {
         req.body.token,
         req.body.password
       );
-      const result = await UserService.confirmResetPassword(dto);
+      const result = await userService.confirmResetPassword(dto);
       return buildSuccessResponse(res, result);
     } catch (error) {
       return handleErrorResponse(res, error);
