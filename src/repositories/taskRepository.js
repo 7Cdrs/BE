@@ -20,6 +20,7 @@ class TaskRepository {
     const task = await Task.create({
       workspaceId: createTaskRequestDTO.workspaceId,
       title: createTaskRequestDTO.title,
+      user_id: createTaskRequestDTO.user_id,
       description: createTaskRequestDTO.description,
       status: createTaskRequestDTO.status,
       deadline: createTaskRequestDTO.deadline,

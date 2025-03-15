@@ -16,7 +16,7 @@ class NotificationRepository {
   async createNotification(createNotificationRequestDTO) {
     const notification = await Notification.create({
       task_id: createNotificationRequestDTO.task_id,
-      userId: createNotificationRequestDTO.userId,
+      user_id: createNotificationRequestDTO.user_id,
       message: createNotificationRequestDTO.message,
       type: createNotificationRequestDTO.type,
       sent_at: createNotificationRequestDTO.sent_at || new Date(),
@@ -39,8 +39,8 @@ class NotificationRepository {
   }
 
   // Get All Notifications by User ID
-  async findNotificationsByUserId(userId) {
-    const notifications = await Notification.findAll({ where: { userId } });
+  async findNotificationsByUserId(user_id) {
+    const notifications = await Notification.findAll({ where: { user_id } });
 
     return notifications.map(
       (notification) => new NotificationDTO(notification)

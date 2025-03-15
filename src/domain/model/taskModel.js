@@ -26,6 +26,15 @@ const Task = sequelize.define(
         notEmpty: true,
       },
     },
+    user_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      references: {
+        model: 'Users', // Sesuai dengan nama tabel di migration Users
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: true,

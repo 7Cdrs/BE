@@ -19,19 +19,22 @@ class NotificationController {
   // Buat Notifikasi baru
   async createNotification(req, res) {
     try {
-      const { task_id, userId, message, type, sent_at, is_read } = req.body;
+      const user_id = req.user.id; // Ambil user_id dari JWT token
+      
+      const { task_id, message, type, sent_at, is_read } = req.body;
 
-      if (!task_id || !userId || !message || !type) {
-        throw new Error("task_id, userId, message, dan type harus diisi");
+      if (!task_id || !message || !type) {
+        throw new Error("task_id, message, dan type harus diisi");
       }
 
-      const dto = new CreateNotificationRequestDTO(task_id, userId, message, type, sent_at, is_read);
+      const dto = new CreateNotificationRequestDTO(task_id, user_id, message, type, sent_at, is_read);
       const { data, message: msg, statusCode } = await NotificationService.createNotification(dto);
       return buildSuccessResponse(res, { data, message: msg, statusCode });
     } catch (error) {
       return handleErrorResponse(res, error);
     }
-  }
+}
+
 
   // Dapatkan Notifikasi berdasarkan ID
   async getNotificationById(req, res) {
@@ -52,13 +55,13 @@ class NotificationController {
   // Dapatkan semua Notifikasi berdasarkan User ID
   async getUserNotifications(req, res) {
     try {
-      const { userId } = req.params;
+      const { user_id } = req.params;
 
-      if (!userId) {
-        throw new Error("userId harus diisi");
+      if (!user_id) {
+        throw new Error("user_id harus diisi");
       }
 
-      const { data, message, statusCode } = await NotificationService.getUserNotifications(userId);
+      const { data, message, statusCode } = await NotificationService.getUserNotifications(user_id);
       return buildSuccessResponse(res, { data, message, statusCode });
     } catch (error) {
       return handleErrorResponse(res, error);

@@ -3,7 +3,7 @@ class TaskDTO {
     this.id = task.id;
     this.workspaceId = task.workspaceId;
     this.title = task.title;
-    this.userId = task.workspace?.user?.id || null;
+    this.user_id = task.user_id;
     this.description = task.description;
     this.status = task.status;
     this.deadline = task.deadline;
@@ -21,6 +21,7 @@ class CreateTaskRequestDTO {
   constructor(
     workspaceId,
     title,
+    user_id,
     description = null,
     status = "To Do",
     deadline,
@@ -28,6 +29,7 @@ class CreateTaskRequestDTO {
   ) {
     this.workspaceId = workspaceId;
     this.title = title;
+    this.user_id = user_id;
     this.description = description;
     this.status = status;
     this.deadline = deadline;

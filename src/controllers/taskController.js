@@ -22,20 +22,23 @@ class TaskController {
   // Buat Task baru
   async createTask(req, res) {
     try {
+      const user_id = req.user.id; // Ambil user_id dari JWT token
+      
       const { workspaceId, title, description, status, deadline, isAiGenerated } = req.body;
 
-      // Validasi input
       if (!workspaceId || !title || !status || !deadline) {
         throw new Error("workspaceId, title, status, dan deadline harus diisi");
       }
 
-      const dto = new CreateTaskRequestDTO(workspaceId, title, description, status, deadline, isAiGenerated);
+      // Tambahkan userId ke DTO
+      const dto = new CreateTaskRequestDTO(workspaceId, title, user_id, description, status, deadline, isAiGenerated);
       const { data, message, statusCode } = await TaskService.createTask(dto);
       return buildSuccessResponse(res, { data, message, statusCode });
     } catch (error) {
       return handleErrorResponse(res, error);
     }
-  }
+}
+
 
   // Dapatkan Task berdasarkan ID
   async getTaskById(req, res) {

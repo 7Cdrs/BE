@@ -1,4 +1,5 @@
 import TaskRepository from "../repositories/taskRepository.js";
+import NotificationRepository from "../repositories/NotificationRepository.js"; // Import Notification Repo
 import {
   TaskDTO,
   CreateTaskRequestDTO,
@@ -34,6 +35,16 @@ class TaskService {
   async createTask(createTaskRequestDTO) {
     validateDTO(createTaskRequestDTO, CreateTaskRequestDTO);
     const task = await TaskRepository.createTask(createTaskRequestDTO);
+
+    // 🔥 Otomatis menambahkan task_id ke tabel Notifications
+    await NotificationRepository.createNotification({
+    task_id: task.id,
+    user_id: task.user_id, // Pastikan task memiliki user_id
+    message: `Task "${task.title}" mendekati deadline`,
+    type: "Email"
+});
+
+  
     const data = new TaskResponseDTO(task);
     return buildResponse(
       data,

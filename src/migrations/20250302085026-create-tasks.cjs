@@ -22,6 +22,15 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
+      user_id: {
+        type: Sequelize.BIGINT,
+        allowNull: false,
+        references: {
+          model: 'Users', // Sesuai dengan nama tabel di migration Users
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+      },
       description: {
         type: Sequelize.TEXT,
         allowNull: true,

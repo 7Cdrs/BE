@@ -2,10 +2,10 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('Notifications', [
+    return queryInterface.bulkInsert('notifications', [
       {
         task_id: 1,
-        userId: 1,
+        user_id: 1,
         message: 'Tugas "Research New Tech" memiliki pembaruan.',
         type: 'Email',
         sent_at: new Date(),
@@ -13,7 +13,7 @@ module.exports = {
       },
       {
         task_id: 2,
-        userId: 2,
+        user_id: 2,
         message: 'Tugas "Client Proposal" telah dikomentari.',
         type: 'WhatsApp',
         sent_at: new Date(),
@@ -21,7 +21,7 @@ module.exports = {
       },
       {
         task_id: 3,
-        userId: 3,
+        user_id: 3,
         message: 'Tugas "Design Marketing Strategy" mendekati deadline.',
         type: 'Email',
         sent_at: new Date(),
@@ -31,6 +31,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Notifications', null, {});
+    return queryInterface.bulkDelete('notifications', null, {});
   },
 };

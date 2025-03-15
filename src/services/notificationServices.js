@@ -76,9 +76,9 @@ class NotificationService {
   }
 
   // Dapatkan semua notifikasi untuk pengguna tertentu
-  async getUserNotifications(userId) {
+  async getUserNotifications(user_id) {
     const notifications =
-      await NotificationRepository.findNotificationsByUserId(userId);
+      await NotificationRepository.findNotificationsByUserId(user_id);
     const data = notifications.map(
       (notification) => new NotificationResponseDTO(notification)
     );

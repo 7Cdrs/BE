@@ -19,7 +19,7 @@ const Notification = sequelize.define(
         key: 'id',
       },
     },
-    userId: {
+    user_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
       references: {
@@ -48,11 +48,12 @@ const Notification = sequelize.define(
   },
   {
     timestamps: false, // Menghindari `createdAt` dan `updatedAt` otomatis
+    underscored: true  // Mengubah format camelCase menjadi snake_case
   }
 );
 
 // Relasi dengan Task dan User
 Notification.belongsTo(Task, { foreignKey: 'task_id', as: 'task' });
-Notification.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Notification.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
 export default Notification;
